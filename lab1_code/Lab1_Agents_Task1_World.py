@@ -84,7 +84,7 @@ def init():
             ret_rm,  rightMotorHandle = vrep.simxGetObjectHandle(clientID, 'Pioneer_p3dx_rightMotor', vrep.simx_opmode_oneshot_wait)
             ret_pr,  pioneerRobotHandle = vrep.simxGetObjectHandle(clientID, 'Pioneer_p3dx', vrep.simx_opmode_oneshot_wait)
             ret_sl,  ultraSonicSensorLeft = vrep.simxGetObjectHandle(clientID, 'Pioneer_p3dx_ultrasonicSensor3',vrep.simx_opmode_oneshot_wait)
-            ret_sr,  ultraSonicSensorRight = vrep.simxGetObjectHandle(clientID, 'Pioneer_p3dx_ultrasonicSensor5',vrep.simx_opmode_oneshot_wait)
+            ret_sr,  ultraSonicSensorRight = vrep.simxGetObjectHandle(clientID, 'Pioneer_p3dx_ultrasonicSensor6',vrep.simx_opmode_oneshot_wait)
             blockHandleArray = []
             for i_block in range(12):
                 blockName = 'ConcretBlock#'+str(i_block)
@@ -142,3 +142,18 @@ def normaliseAngle(direction):
     while direction<-math.pi: direction += 2*math.pi
     assert -math.pi<=direction<=math.pi, direction
     return direction
+
+
+def avoidWalls():
+    rightDist = getSensorReading('ultraSonicSensorRight')
+    leftDist = getSensorReading('ultraSonicSensorLeft')
+
+    while float(rightDist) < 0.5 or float(leftDist) < 0.5 * 1.20:
+        rightDist = getSensorReading('ultraSonicSensorRight')
+        leftDist = getSensorReading('ultraSonicSensorLeft')
+
+        if rightDist < 0.5:
+            setMotorSpeeds(dict(speedLeft=-1,speedRight=1))
+        elif leftDist < 0.5 * 1.20:
+            setMotorSpeeds(dict(speedLeft=1,speedRight=-1))
+
