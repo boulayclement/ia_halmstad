@@ -11,7 +11,6 @@ import Lab1_Agents_Task1_World as World
 
 
 
-
 def moveToNearestBlock():
     if dirToNearestEnergy < -0.4:
         motorSpeed = dict(speedRight=2,speedLeft=-1)
