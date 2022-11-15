@@ -52,24 +52,23 @@ while robot: # main Control loop
     ##############################################
 
 
-    # if float(rightDist) < 0.2 or float(leftDist) < 0.2 * 1.20:
+    if float(rightDist) < 0.5 or float(leftDist) < 0.5 * 1.20:
         # if rightDist < 0.2:
         #     motorSpeed = dict(speedLeft=-1,speedRight=3)
         #     lastTurn = "left"
         # elif leftDist < 0.2 * 1.20:
         #     motorSpeed = dict(speedLeft=3,speedRight=-1)
         #     lastTurn = "right"
-        # World.avoidWalls()
-    # el
-    if distToNearestEnergy < 0.5 and distToNearestEnergy > -0.5:
+        World.avoidWalls()
+    elif distToNearestEnergy < 0.5 and distToNearestEnergy > -0.5:
         changeStratTiming = World.getSimulationTime()
         World.collectNearestBlock()
         counter = 0
     else:
-        if simulationTime - changeStratTiming > 30000:
+        if simulationTime - changeStratTiming > 50000:
             print("Pass", lastTurn)
             # if (lastTurn == "left"):
-            World.execute(dict(speedLeft=-2, speedRight=2),1000,-1)
+            # World.execute(dict(speedLeft=-2, speedRight=2),1000,-1)
             # elif lastTurn=="right":
             #     World.execute(dict(speedLeft=2, speedRight=-2),1000,-1)
             World.execute(dict(speedLeft=-2, speedRight=-2),10000,-1)
