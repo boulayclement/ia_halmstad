@@ -157,3 +157,17 @@ def avoidWalls():
         elif leftDist < 0.5 * 1.20:
             setMotorSpeeds(dict(speedLeft=1,speedRight=-1))
 
+
+# def avoidWalls_Memo():
+#     rightDist = getSensorReading('ultraSonicSensorRight')
+#     leftDist = getSensorReading('ultraSonicSensorLeft')
+
+#     while float(rightDist) < 0.5 or float(leftDist) < 0.5 * 1.20:
+#         rightDist = getSensorReading('ultraSonicSensorRight')
+#         leftDist = getSensorReading('ultraSonicSensorLeft')
+#         if rightDist < 0.5:
+#             setMotorSpeeds(dict(speedLeft=-1,speedRight=3))
+#         elif leftDist < 0.5 * 1.20:
+#             setMotorSpeeds(dict(speedLeft=3,speedRight=-1))
+
+#     return
